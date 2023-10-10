@@ -15,7 +15,7 @@ MVC filter and middleware are also incompatible with Blazor, since they are base
 HttpContextAccessor/HttpContext should be avoided in the Razor components of Blazor server apps. A critical aspect of server-side Blazor security is that the information attached to a given circuit might become updated at some point after the Blazor circuit is established but the IHttpContextAccessor isn't updated. [Ref](https://learn.microsoft.com/en-us/aspnet/core/blazor/security/server/threat-mitigation?view=aspnetcore-7.0#avoid-ihttpcontextaccessorhttpcontext-in-razor-components)
 
 
-The recommended approach for passing request state to the Blazor app is through root component(App.razor) parameters during the app's initial rendering(_Host.cshtml). Alternatively, the app can copy the data into a scoped service in the root component's initialization lifecycle event for use across the app.
+The recommended approach for passing request state to the Blazor app is through root component(App.razor) parameters during the app's initial rendering(_Host.cshtml). Alternatively, the app can copy the data into a scoped service in the root component's initialization lifecycle event for use across the app. [Ref](https://learn.microsoft.com/en-us/aspnet/core/blazor/security/server/additional-scenarios?view=aspnetcore-7.0#pass-tokens-to-a-server-side-blazor-app)
 
 This will make the HttpContextAccessor pattern for TargetingFilter fail. 
 Besides, the FeatureManager and feature filters are always registered as a singleton. Scoped services can not be consumed by them.
