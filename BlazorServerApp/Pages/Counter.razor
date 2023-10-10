@@ -1,0 +1,54 @@
+﻿@page "/counter"
+@inject IHttpContextAccessor _httpContextAccessor
+@inject ContextProvider _context
+
+@inject IFeatureManagerSnapshot _featureManager
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<p>Count in session: @sessionCount</p>
+
+<p>Count in session in the initial state when the HTTP request is established: @_context.SessionCount</p>
+
+<p>Is feature enabled?  @isFeatureEnabled</p>
+
+@if (isFeatureEnabled)
+{
+    <p>You can see this content only when the feature flag is enabled.</p>
+}
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private string sessionCount;
+
+    private bool isFeatureEnabled;
+
+    private async void IncrementCount()
+    {
+        currentCount++;  
+
+        int n = Int32.Parse(_httpContextAccessor.HttpContext.Session.GetString("Count")) + 1;
+
+        _httpContextAccessor.HttpContext.Session.SetString("Count", n.ToString());
+
+        Console.WriteLine($"Count in http context session has been changed to {n} in the Counter.");
+
+        sessionCount = _httpContextAccessor.HttpContext.Session.GetString("Count");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        sessionCount = _httpContextAccessor.HttpContext.Session.GetString("Count");
+
+        Console.WriteLine($"Get Count {sessionCount} from http context session when Counter is initialized.");
+
+        isFeatureEnabled = await _featureManager.IsEnabledAsync("MyFeature");
+    }
+}

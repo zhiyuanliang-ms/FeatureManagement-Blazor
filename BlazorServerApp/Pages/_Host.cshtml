@@ -1,0 +1,58 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@namespace BlazorServerApp.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Microsoft.FeatureManagement.AspNetCore
+@inject IHttpContextAccessor _httpContextAccessor
+@{
+    Console.WriteLine("HTTP request happened.");
+
+    _httpContextAccessor.HttpContext.Session.SetString("Count", "0");
+
+    var sessionCount = _httpContextAccessor.HttpContext.Session.GetString("Count");
+
+    Console.WriteLine($"Count in http context session has been changed to {sessionCount} in _Host.cshtml, when the HTTP request happened.");
+
+    // The recommended way to access http context
+    var state = new ApplicationState()
+    {
+        IsAuthenticated = HttpContext.User.Identity.IsAuthenticated,
+        UserName = HttpContext.User.Identity.Name,
+        SessionCount = HttpContext.Session.GetString("Count")
+    };
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="BlazorServerApp.styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+</head>
+<body>
+    <feature name="Beta">
+        <h3>Beta Banner</h3>
+    </feature>
+
+    <component type="typeof(App)" param-InitialState="state" render-mode="Server" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>

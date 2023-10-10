@@ -1,0 +1,20 @@
+﻿@page "/beta"
+@if (isFeatureEnabled)
+{
+    <h3>Beta Page</h3>
+}
+else
+{
+    <h3>404</h3>
+}
+
+@inject IFeatureManagerSnapshot _featureManager
+
+@code {
+    private bool isFeatureEnabled;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isFeatureEnabled = await _featureManager.IsEnabledAsync("Beta");
+    }
+}
