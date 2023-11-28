@@ -10,7 +10,6 @@ using Microsoft.FeatureManagement.FeatureFilters;
 using Ninject;
 using System.Reflection;
 using Unity;
-using Castle.MicroKernel;
 
 namespace DIContainers
 {
