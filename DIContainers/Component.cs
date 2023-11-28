@@ -6,7 +6,7 @@
 
     public abstract class Component : IComponent
     {
-        public ILogger Logger { get; set; }
+        public IMyLogger Logger { get; set; }
 
         public abstract void DoSomething();
     }

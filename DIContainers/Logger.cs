@@ -1,11 +1,11 @@
 ﻿namespace DIContainers
 {
-    public interface ILogger
+    public interface IMyLogger
     {
         public void Info(string message);
     }
 
-    public class Logger : ILogger
+    public class MyLogger : IMyLogger
     {
         public void Info(string message)
         {
