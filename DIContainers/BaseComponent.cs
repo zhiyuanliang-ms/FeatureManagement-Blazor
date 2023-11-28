@@ -4,14 +4,14 @@
     {
     }
 
-    public abstract class Component : IComponent
+    public abstract class BaseComponent : IComponent
     {
         public IMyLogger Logger { get; set; }
 
         public abstract void DoSomething();
     }
 
-    public class ComponentA : Component 
+    public class ComponentA : BaseComponent 
     { 
         public override void DoSomething()
         {
@@ -19,7 +19,7 @@
         }
     }
 
-    public class ComponentB : Component
+    public class ComponentB : BaseComponent
     {
         public override void DoSomething()
         {

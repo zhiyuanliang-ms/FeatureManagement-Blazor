@@ -4,11 +4,17 @@
     {
         static void Main()
         {
-            Demo.DemoMEDI();
+            //Demo.DemoMEDI();
 
-            Demo.DemoAutofac();
+            //Demo.DemoAutofac();
 
-            Demo.UseFeatureManagementWithAutofac();
+            //Demo.UseFeatureManagementWithAutofac();
+
+            //Demo.UseFeatureManagementWithUnity();
+
+            //Demo.UseFeatureManagementWithNinject();
+
+            Demo.UseFeatureManagementWithCastleWindsor();
         }
     }
 }
