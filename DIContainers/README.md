@@ -7,5 +7,13 @@ The project provides demos to demonstrate how to register Feature Management ser
 
 `Microsoft.Extensions.DependencyInjection` is the dependency injection framework for .NET provided by Microsoft, which designed to meet base-level functional needs. While MEDI offers a limited set of features, developers seeking enhanced capabilities have plenty of reasons to opt for alternative dependency injection frameworks that offer a more powerful feature set.
 
-Using AutoFac for comparison, I will provide two examples to illustrate the shortcomings of MEDI.
+Taking AutoFac for comparison, I will provide two examples to illustrate the shortcomings of MEDI.
+1. Register/Resolve by Key
+Let's say we have multiple implementations of an interface and they need to be injected into different targets.
+Before .NET 8.0, there is no way to register/resolve services by key.
 
+Furthermore, there could be a scenario that we don't know which implementation to use until runtime.
+In MEDI, we have to inject all implementations and resolve all of them to find the one to use.
+
+
+2. Properties Automwired
